@@ -1,3 +1,5 @@
+'use client'
+import { useRouter } from 'next/navigation';
 import React, { ReactNode } from "react";
 
 const Menu = [
@@ -28,11 +30,13 @@ type Props = {
   isClick?: boolean
 }
 const SidebarBox = ({ children, isClick = false }: Props) => {
+  const router = useRouter()
   return (
     <div
-      className={`py-[8px] flex items-center border-b border-solid border-[#d5d5db] p-[8px] ${
+      className={`py-[8px] flex items-center border-b border-solid border-[#d5d5db] p-[8px] cursor-pointer ${
         isClick ? "bg-[#eff0f4] text-[#103e93] font-bold" : ""
       }`}
+      onClick={() => router.push("/civilComplaintRequest")}
     >
       {children}
     </div>
