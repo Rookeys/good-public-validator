@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 
 export const SmallBanner = () => {
   return (
-    <div className="h-[20px] flex gap-[4px] items-center">
+    <div className="h-[20px] flex gap-[4px] items-center self-end">
       <HomeIcon color="#ADADAD" width={20} height={20} />
       <p>{">"}</p>
       <p>{"참여·민원"}</p>
