@@ -74,14 +74,14 @@ export default function MyWrite() {
           <div className="col-span-1 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">만족도 조사</div>
         </article>
         {data && Array.isArray(data) && data.length > 0 && 
-        data.map((data) => <article className="grid grid-cols-9 cursor-pointer" key={data.id} onClick={() => {router.push(`/civilComplaintRequest/myWrite/${data.id}`);}}>
-          <div className="col-span-1 px-[4px] py-[12px] text-center">{data.id}</div>
+        data.map((data) => <article className="grid grid-cols-9 cursor-pointer" key={data.id}>
+          <div className="col-span-1 px-[4px] py-[12px] text-center" onClick={() => {router.push(`/civilComplaintRequest/myWrite/${data.id}`)}}>{data.id}</div>
           <div className="col-span-2 px-[4px] py-[12px] text-center">{data.id}</div>
           <div className="col-span-2 px-[4px] py-[12px] text-center">{data.title}</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center">{formatUTCDateToLocalDateString(data.created_at)}</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center">행정안전부</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center">진행중</div>
-          <div className="col-span-1 px-[4px] py-[12px] text-center">-</div>
+          <div className="col-span-1 px-[4px] py-[12px] text-center"onClick={() => {router.push(`/publicOfficial/${data.id}`);}} >-</div>
         </article>)}
       </section>
     </section>

@@ -59,11 +59,31 @@ export default function PublicOfficial() {
             data-limit="40000"
             rows={10}
             title="민원내용"
-            defaultValue={data?.validation ? data?.content : data?.filteringData}
+            defaultValue={
+              data?.validation ? data?.content : data?.filteringData
+            }
             // onChange={e => setContent(e.target.value)}
             maxLength={40000}
             readOnly
           />
+          <div className="flex justify-between items-center">
+            <label htmlFor="name" className="text-[14px]">
+              체크리스트
+            </label>
+          </div>
+
+          <div className="w-full">
+            <textarea
+              className="w-full border border-solid border-[#c4c9ce] p-[8px] rounded resize-none text-gray"
+              name="pttnCntnCl"
+              id="pttnCntnCl"
+              disabled
+              data-limit="40000"
+              rows={10}
+              value={data?.checklist}
+              maxLength={40000}
+            />
+          </div>
         </div>
 
         <article className="mt-[10px] flex justify-between bg-[#f4f5f9] items-center border-t border-solid border-[#c4c9ce] pr-4">

@@ -6,8 +6,8 @@ import Stepper from "@/components/common/stepper";
 import { Sidebar } from "@/components/sidebar";
 import { SmallBanner } from "@/components/smallBanner";
 import { Button } from "@/components/ui/button";
-import { getTranslateBadToGood, getValidation } from "@/services";
-import { createClient } from '@supabase/supabase-js';
+import { getChecklist, getTranslateBadToGood, getValidation } from "@/services";
+import { createClient } from "@supabase/supabase-js";
 import { ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -73,37 +73,48 @@ export default function Write() {
 
   const post = async () => {
     if (!sbUrl || !sbApiKey) return;
-    const validationResponse = await getValidation(content)
+    const validationResponse = await getValidation(content);
     const boolString = validationResponse.validFlag.toLowerCase();
-    const validation = boolString === 'true' ? true : false
+    const validation = boolString === "true" ? true : false;
+
+    const { checkList: checklist } = await getChecklist(content);
+
     const client = createClient(sbUrl, sbApiKey);
     const { data, error } = await client
       .from("complaints")
-      .insert([{ title, content, validation, filteringData: GoodText }])
+      .insert([
+        {
+          title,
+          content,
+          validation,
+          filteringData: GoodText,
+          checklist,
+        },
+      ])
       .select();
   };
 
-  
-  const checkAISummary = async() => {
-    if(GoodText) return
+  const checkAISummary = async () => {
+    if (GoodText) return;
     try {
-    setIsLoading(true);
-    const response = await getTranslateBadToGood(content);
-    setGoodText(response.bad2good);
-    setIsLoading(false);
-    } catch(e) {
-      console.log(e)
+      setIsLoading(true);
+      const response = await getTranslateBadToGood(content);
+      setGoodText(response.bad2good);
+      setIsLoading(false);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
   const submit = async () => {
     try {
+      setIsLoading(true);
       await post();
       router.push("/civilComplaintRequest/myWrite");
     } catch {
       console.log("error");
     } finally {
+      setIsLoading(false);
     }
-
   };
   const router = useRouter();
 
