@@ -5,9 +5,11 @@ import Stepper from "@/components/common/stepper";
 import { Sidebar } from "@/components/sidebar";
 import { SmallBanner } from "@/components/smallBanner";
 import { Button } from "@/components/ui/button";
-import { ChevronDownCircleIcon, ChevronDownIcon } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
+import { ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
 
 const cautions = [
   "제목과 내용은 접수 후 수정, 삭제가 불가능하므로 다시 확인하시고 신청해 주시기 바랍니다.",
@@ -26,9 +28,55 @@ const cautions2 = [
 ];
 
 export default function Write() {
-  const [firstInput, setFirstInput] = useState("");
-  const [secondInput, setSecondInput] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [thirdInput, setThirdInput] = useState(true);
+  // const [data, setData] = useState<any>();
+
+  const sbApiKey = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
+  const sbUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+  // const getAll = async () => {
+  //   if (!sbUrl || !sbApiKey) return;
+  //   const client = createClient(sbUrl, sbApiKey);
+  //   const { data: complaints, error } = await client
+  //     .from("complaints")
+  //     .select("*");
+  //   setData(complaints);
+  // };
+
+  // useEffect(() => {
+  //   getAll();
+  // }, [sbApiKey, sbUrl]);
+
+  // const getOne = async () => {
+  //   if (!sbUrl || !sbApiKey) return;
+  //   const client = createClient(sbUrl, sbApiKey);
+  //   const { data, error } = await client
+  //     .from("complaints")
+  //     .select("*")
+  //     .eq("id", 1); // Condition to filter data
+  //     console.log(data)
+  // };
+
+  // useEffect(() => {
+  //   getOne();
+  // }, [sbApiKey, sbUrl]);
+
+  const post = async () => {
+    if (!sbUrl || !sbApiKey) return;
+    const client = createClient(sbUrl, sbApiKey);
+    const { data, error } = await client
+      .from("complaints")
+      .insert([{ title, content }])
+      .select();
+    console.log(data);
+  };
+
+  const submit = async () => {
+    await post();
+  };
+  const router = useRouter();
 
   return (
     <section className="w-full justify-center mt-[40px] flex gap-[60px]">
@@ -68,13 +116,13 @@ export default function Write() {
           <input
             type="text"
             id="name"
-            value={firstInput}
-            onChange={(e) => setFirstInput(e.target.value)}
+            value={title}
+            onChange={e => setTitle(e.target.value)}
             className="border border-solid border-[#c4c9ce] p-[8px] rounded"
             max={200}
           />
           <div className="w-full flex justify-end">
-            <span className="text-[10px] text-[#555555]">{`(${firstInput.length} / 200)`}</span>
+            <span className="text-[10px] text-[#555555]">{`(${title.length} / 200)`}</span>
           </div>
 
           <label htmlFor="name" className="text-[14px]">
@@ -88,12 +136,12 @@ export default function Write() {
             data-limit="40000"
             rows={10}
             title="민원내용"
-            value={secondInput}
-            onChange={(e) => setSecondInput(e.target.value)}
+            value={content}
+            onChange={e => setContent(e.target.value)}
             maxLength={40000}
           />
           <div className="w-full flex justify-end">
-            <span className="text-[10px] text-[#555555]">{`(${secondInput.length} / 40000)`}</span>
+            <span className="text-[10px] text-[#555555]">{`(${content.length} / 40000)`}</span>
           </div>
         </div>
 
@@ -218,6 +266,10 @@ export default function Write() {
               variant={"default"}
               type="button"
               className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-secondary text-white border-[1px] border-solid border-[#c4c9ce]"
+              onClick={async () => {
+                await submit();
+                // router.push('/');
+              }}
             >
               신청
             </Button>
