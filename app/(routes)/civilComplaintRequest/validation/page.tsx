@@ -1,14 +1,16 @@
 "use client";
 
 import { Announcement } from "@/components/announcement";
+import Loading from "@/components/common/loading";
 import Stepper from "@/components/common/stepper";
 import { Sidebar } from "@/components/sidebar";
 import { SmallBanner } from "@/components/smallBanner";
 import { Button } from "@/components/ui/button";
+import { getTranslateBadToGood } from "@/services";
 import { createClient } from "@supabase/supabase-js";
 import { ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const cautions = [
@@ -31,6 +33,10 @@ export default function Write() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [thirdInput, setThirdInput] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [GoodText, setGoodText] = useState("");
+  // const [data, setData] = useState<any>();
 
   const sbApiKey = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
   const sbUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -66,16 +72,26 @@ export default function Write() {
 
   const post = async () => {
     if (!sbUrl || !sbApiKey) return;
-    const client = createClient(sbUrl, sbApiKey);
-    const { data, error } = await client
-      .from("complaints")
-      .insert([{ title, content }])
-      .select();
-    console.log(data);
+    // const client = createClient(sbUrl, sbApiKey);
+    // const { data, error } = await client
+    //   .from("complaints")
+    //   .insert([{ title, content }])
+    //   .select();
+    // console.log(data);
   };
 
   const submit = async () => {
-    await post();
+    try {
+      setIsLoading(true);
+      const response = await getTranslateBadToGood(content);
+      setGoodText(response.content);
+    } catch {
+      console.log("error");
+    } finally {
+      setIsLoading(false);
+    }
+
+    // await post();
   };
   const router = useRouter();
 
@@ -118,7 +134,7 @@ export default function Write() {
             type="text"
             id="name"
             value={title}
-            onChange={e => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             className="border border-solid border-[#c4c9ce] p-[8px] rounded"
             max={200}
           />
@@ -138,12 +154,29 @@ export default function Write() {
             rows={10}
             title="민원내용"
             value={content}
-            onChange={e => setContent(e.target.value)}
+            onChange={(e) => setContent(e.target.value)}
             maxLength={40000}
           />
           <div className="w-full flex justify-end">
             <span className="text-[10px] text-[#555555]">{`(${content.length} / 40000)`}</span>
           </div>
+        </div>
+
+        <label htmlFor="name" className="text-[14px] px-[10px]">
+          순화된 문의 내용
+        </label>
+
+        <div className="w-full px-[10px]">
+          <textarea
+            className="w-full border border-solid border-[#c4c9ce] p-[8px] rounded resize-none text-gray"
+            name="pttnCntnCl"
+            id="pttnCntnCl"
+            disabled
+            data-limit="40000"
+            rows={10}
+            value={GoodText}
+            maxLength={40000}
+          />
         </div>
 
         <article className="mt-[10px] flex justify-between bg-[#f4f5f9] items-center border-t border-solid border-[#c4c9ce] pr-4">
@@ -277,6 +310,7 @@ export default function Write() {
           </div>
         </div>
       </section>
+      {isLoading && <Loading />}
     </section>
   );
 }
