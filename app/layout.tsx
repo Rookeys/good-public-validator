@@ -7,13 +7,13 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Dessert gallery",
-    default: "Dessert gallery",
+    template: "%s | Good public validator",
+    default: "Good public validator",
   },
   description:
-    "Get recommendations for dessert cafes near you. Community sites with recommendations for the best dessert cafes",
+    "",
   icons: {
-    icon: "/faviconT.ico",
+    icon: "/favicon.ico",
   },
 };
 
