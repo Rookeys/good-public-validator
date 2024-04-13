@@ -20,7 +20,15 @@ const Stepper: FC<StepperProps> = ({ step }) => {
         <PencilSquareIcon className="w-[24px] h-[24px]" />
         <p>1. 신청서 작성</p>
       </div>
-      <Image src="/images/stepper.png" alt="stepper" width={20} height={70} />
+
+      <Image
+        src={`${step === 1 ? "/images/stepper.png" : "/images/stepper2.png"}`}
+        alt="stepper"
+        width={20}
+        height={70}
+        className={`${step === 1 ? "bg-white" : "bg-secondary"}`}
+      />
+
       <div
         className={`w-full h-[70px] flex justify-start items-center gap-[8px] ${
           step === 2 ? "bg-secondary text-white" : "bg-white"
