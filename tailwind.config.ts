@@ -41,21 +41,10 @@ const config = {
     },
     colors: {
       primary: {
-        DEFAULT: "#FF8D00",
-        10: "#FFF0D9",
-        20: "#FFE7C4",
-        30: "#FFE0B5",
-        40: "#FED9A6",
-        50: "#FDC886",
-        60: "#FFC266",
-        70: "#FFB54D",
-        80: "#FFA733",
-        90: "#FF9600",
-        foreground: "#FFFDF9",
+        DEFAULT: "#406bb3",
       },
       secondary: {
-        DEFAULT: "#FCF0E1",
-        foreground: "#010816",
+        DEFAULT: "#318de7",
       },
       destructive: {
         DEFAULT: "#ee4444",
@@ -77,7 +66,7 @@ const config = {
         DEFAULT: "#ffffff",
         foreground: "#010816",
       },
-      gray: "#ADADAD",
+      gray: "#797979",
       black: "#000000",
       white: "#FFFFFF",
       border: "#e2e8f0",
