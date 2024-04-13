@@ -1,6 +1,4 @@
-import { Sidebar } from '@/components/sidebar';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { SmallBanner } from '@/components/smallBanner';
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,6 +7,6 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <Sidebar />
+    <SmallBanner />
   );
 }
