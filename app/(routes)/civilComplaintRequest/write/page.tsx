@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from "react";
 
 export default function Write() {
-  const [radio, setRadio] = useState<boolean>();
+  const [radio, setRadio] = useState<boolean>(true);
   const router = useRouter()
   return (
     <section className="w-full justify-center mt-[40px] flex gap-[60px] mb-[60px]">
@@ -189,7 +189,7 @@ export default function Write() {
           </article>
           <article className="flex w-full">
             <div className="w-[170px] items-start pt-[10px] flex flex-col">
-              <p>ddd</p>
+              <p>민원답변 통지방식</p>
             </div>
             <div className="flex items-center gap-[4px]">
               <div className="flex flex-col gap-[4px]">
