@@ -1,16 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { Input } from "../ui/input";
+import { StarIcon } from "@heroicons/react/24/solid";
 import {
   AlignJustify,
   ChevronDownIcon,
-  Search,
-  Star,
-  Stethoscope,
+  Search
 } from "lucide-react";
-import { StarIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
 
 export const Header = () => {
   return (
