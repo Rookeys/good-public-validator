@@ -8,7 +8,7 @@ const Menu = [
 ];
 export const Sidebar = () => {
   return (
-    <section className="flex flex-col w-[260px]">
+    <section className="hidden xl:flex flex-col w-[260px]">
       <div className="bg-primary text-[28px] text-center text-white w-full py-[16px] mb-[8px]">
         온라인 민원신청
       </div>
