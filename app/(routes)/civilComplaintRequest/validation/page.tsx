@@ -6,12 +6,12 @@ import Stepper from "@/components/common/stepper";
 import { Sidebar } from "@/components/sidebar";
 import { SmallBanner } from "@/components/smallBanner";
 import { Button } from "@/components/ui/button";
-import { getTranslateBadToGood } from "@/services";
-import { createClient } from "@supabase/supabase-js";
+import { getTranslateBadToGood, getValidation } from "@/services";
+import { createClient } from '@supabase/supabase-js';
 import { ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const cautions = [
   "제목과 내용은 접수 후 수정, 삭제가 불가능하므로 다시 확인하시고 신청해 주시기 바랍니다.",
@@ -36,6 +36,7 @@ export default function Write() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [GoodText, setGoodText] = useState("");
+  const [checkBox, setCheckbox] = useState<boolean>(false);
   // const [data, setData] = useState<any>();
 
   const sbApiKey = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
@@ -72,26 +73,37 @@ export default function Write() {
 
   const post = async () => {
     if (!sbUrl || !sbApiKey) return;
-    // const client = createClient(sbUrl, sbApiKey);
-    // const { data, error } = await client
-    //   .from("complaints")
-    //   .insert([{ title, content }])
-    //   .select();
-    // console.log(data);
+    const validationResponse = await getValidation(content)
+    const boolString = validationResponse.validFlag.toLowerCase();
+    const validation = boolString === 'true' ? true : false
+    const client = createClient(sbUrl, sbApiKey);
+    const { data, error } = await client
+      .from("complaints")
+      .insert([{ title, content, validation, filteringData: GoodText }])
+      .select();
   };
 
+  
+  const checkAISummary = async() => {
+    if(GoodText) return
+    try {
+    setIsLoading(true);
+    const response = await getTranslateBadToGood(content);
+    setGoodText(response.bad2good);
+    setIsLoading(false);
+    } catch(e) {
+      console.log(e)
+    }
+  }
   const submit = async () => {
     try {
-      setIsLoading(true);
-      const response = await getTranslateBadToGood(content);
-      setGoodText(response.content);
+      await post();
+      router.push("/civilComplaintRequest/myWrite");
     } catch {
       console.log("error");
     } finally {
-      setIsLoading(false);
     }
 
-    // await post();
   };
   const router = useRouter();
 
@@ -134,7 +146,7 @@ export default function Write() {
             type="text"
             id="name"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={e => setTitle(e.target.value)}
             className="border border-solid border-[#c4c9ce] p-[8px] rounded"
             max={200}
           />
@@ -154,17 +166,29 @@ export default function Write() {
             rows={10}
             title="민원내용"
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            readOnly={!!GoodText}
+            onChange={e => setContent(e.target.value)}
             maxLength={40000}
           />
           <div className="w-full flex justify-end">
-            <span className="text-[10px] text-[#555555]">{`(${content.length} / 40000)`}</span>
+            <span className="text-[10px] text-[#9b8c8c]">{`(${content.length} / 40000)`}</span>
           </div>
         </div>
 
-        <label htmlFor="name" className="text-[14px] px-[10px]">
-          순화된 문의 내용
-        </label>
+        <div className="flex justify-between items-center">
+          <label htmlFor="name" className="text-[14px] px-[10px]">
+            순화된 문의 내용
+          </label>
+          <Button
+            variant={"default"}
+            type="button"
+            className="rounded-full hover:border-[1px] hover:border-solid !py-2 !px-6 !font-normal !text-[14px] bg-primary"
+            onClick={checkAISummary}
+            disabled={!!GoodText}
+          >
+            요약하기
+          </Button>
+        </div>
 
         <div className="w-full px-[10px]">
           <textarea
@@ -176,6 +200,18 @@ export default function Write() {
             rows={10}
             value={GoodText}
             maxLength={40000}
+          />
+        </div>
+        <div className="flex gap-[4px] items-center self-end px-[10px]">
+          <p className="text-[12px]">
+            부적절한 민원으로 필터 시 다음과같은 내용으로 변환되어 신청되는것을
+            동의합니다.
+          </p>
+          <input
+            type="checkbox"
+            className="w-[20px] h-[20px]"
+            checked={!!checkBox}
+            onChange={() => setCheckbox(!checkBox)}
           />
         </div>
 
@@ -280,7 +316,6 @@ export default function Write() {
               취소
             </Button>
           </div>
-
           <div className="flex gap-4">
             <Button
               variant={"default"}
@@ -299,10 +334,10 @@ export default function Write() {
             <Button
               variant={"default"}
               type="button"
-              className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-secondary text-white border-[1px] border-solid border-[#c4c9ce]"
+              disabled={!checkBox}
+              className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-secondary text-white border-[1px] border-solid border-[#c4c9ce] disabled:bg-gray"
               onClick={async () => {
                 await submit();
-                router.push("/civilComplaintRequest/myWrite");
               }}
             >
               신청

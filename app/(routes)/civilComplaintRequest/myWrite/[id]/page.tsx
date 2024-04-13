@@ -42,7 +42,7 @@ export default function MyWriteDetail() {
           <input
             type="text"
             id="name"
-            value={data?.title}
+            defaultValue={data?.title}
             readOnly
             // onChange={e => setTitle(e.target.value)}
             className="border border-solid border-[#c4c9ce] p-[8px] rounded"
@@ -58,11 +58,29 @@ export default function MyWriteDetail() {
             data-limit="40000"
             rows={10}
             title="민원내용"
-            value={data?.content}
+            defaultValue={data?.content}
             // onChange={e => setContent(e.target.value)}
             maxLength={40000}
             readOnly
           />
+          {/* {!(data?.validation) && <div className="flex justify-between items-center">
+            <label htmlFor="name" className="text-[14px]">
+              부적절한 민원 글로 감지되었습니다
+            </label>
+          </div>}
+          <div className="w-full">
+            <textarea
+              className="w-full border border-solid border-[#c4c9ce] p-[8px] rounded resize-none text-gray"
+              name="pttnCntnCl"
+              id="pttnCntnCl"
+              disabled
+              // defaultValue={}
+              data-limit="40000"
+              rows={10}
+              maxLength={40000}
+            />
+          </div> */}
+          
         </div>
 
         <article className="mt-[10px] flex justify-between bg-[#f4f5f9] items-center border-t border-solid border-[#c4c9ce] pr-4">
@@ -92,7 +110,7 @@ export default function MyWriteDetail() {
                 type="radio"
                 id="yes"
                 name="answer"
-                value="yes"
+                defaultValue="yes"
                 checked
                 readOnly
                 // onChange={() => setThirdInput(true)}
@@ -104,7 +122,7 @@ export default function MyWriteDetail() {
                 type="radio"
                 id="no"
                 name="answer"
-                value="no"
+                defaultValue="no"
                 readOnly
                 // checked={!thirdInput}
                 // onChange={() => setThirdInput(false)}

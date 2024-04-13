@@ -39,3 +39,13 @@ export const getWhyBadRequest = async (text: string) => {
 
   return response;
 };
+
+export const getValidation = async (text: string) => {
+  const response = await axios
+    .post("http://localhost:8000/valid_flag", {
+      text,
+    })
+    .then(res => res.data);
+
+  return response;
+};

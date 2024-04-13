@@ -2,6 +2,7 @@
 import { Announcement } from "@/components/announcement";
 import { Sidebar } from "@/components/sidebar";
 import { SmallBanner } from "@/components/smallBanner";
+import { Button } from '@/components/ui/button';
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { createClient } from "@supabase/supabase-js";
 import Image from "next/image";
@@ -42,7 +43,7 @@ export default function PublicOfficial() {
           <input
             type="text"
             id="name"
-            value={data?.title}
+            defaultValue={data?.title}
             readOnly
             // onChange={e => setTitle(e.target.value)}
             className="border border-solid border-[#c4c9ce] p-[8px] rounded"
@@ -58,7 +59,7 @@ export default function PublicOfficial() {
             data-limit="40000"
             rows={10}
             title="민원내용"
-            value={data?.content}
+            defaultValue={data?.validation ? data?.content : data?.filteringData}
             // onChange={e => setContent(e.target.value)}
             maxLength={40000}
             readOnly
@@ -92,9 +93,10 @@ export default function PublicOfficial() {
                 type="radio"
                 id="yes"
                 name="answer"
-                value="yes"
+                // value="yes"
                 checked
                 readOnly
+                disabled
                 // onChange={() => setThirdInput(true)}
               />
               예
@@ -104,8 +106,9 @@ export default function PublicOfficial() {
                 type="radio"
                 id="no"
                 name="answer"
-                value="no"
+                // value="no"
                 readOnly
+                disabled
                 // checked={!thirdInput}
                 // onChange={() => setThirdInput(false)}
               />
