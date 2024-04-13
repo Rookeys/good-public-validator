@@ -42,6 +42,7 @@ const config = {
     colors: {
       primary: {
         DEFAULT: "#406bb3",
+        foreground: "#FFFFFF",
       },
       secondary: {
         DEFAULT: "#318de7",
@@ -76,6 +77,7 @@ const config = {
       foreground: "#010816",
     },
     borderRadius: {
+      ["2xsm"]: "4px",
       xsm: "8px",
       sm: "12px",
       md: "24px",
