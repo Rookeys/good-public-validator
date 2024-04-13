@@ -5,9 +5,11 @@ import Stepper from "@/components/common/stepper";
 import { Sidebar } from "@/components/sidebar";
 import { SmallBanner } from "@/components/smallBanner";
 import { Button } from "@/components/ui/button";
+import { getFollowRecommends } from "@/lib/test";
+
 import { ChevronDownCircleIcon, ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const cautions = [
   "제목과 내용은 접수 후 수정, 삭제가 불가능하므로 다시 확인하시고 신청해 주시기 바랍니다.",
@@ -29,6 +31,10 @@ export default function Write() {
   const [firstInput, setFirstInput] = useState("");
   const [secondInput, setSecondInput] = useState("");
   const [thirdInput, setThirdInput] = useState(true);
+
+  useEffect(() => {
+    getFollowRecommends();
+  }, []);
 
   return (
     <section className="w-full justify-center mt-[40px] flex gap-[60px]">

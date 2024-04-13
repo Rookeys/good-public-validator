@@ -1,4 +1,3 @@
-import { Header } from "@/components/common/header";
 import Stepper from "@/components/common/stepper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

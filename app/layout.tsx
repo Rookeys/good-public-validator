@@ -1,9 +1,11 @@
+import Footer from "@/components/common/footer";
+import { Header } from "@/components/common/header";
+import { Toaster } from "@/components/ui/toaster";
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import { Header } from "@/components/common/header";
-import Footer from "@/components/common/footer";
+import { MSWComponent } from "@/components/common/MSWComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +29,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}`}>
         <Header />
-        <main>{children}</main>
+        <MSWComponent />
+        {children}
+
         <Toaster />
         <Footer />
       </body>
