@@ -41,6 +41,8 @@ export default function Write() {
   const sbApiKey = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
   const sbUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
+  // const [data, setData] = useState<any>();
+
   // const getAll = async () => {
   //   if (!sbUrl || !sbApiKey) return;
   //   const client = createClient(sbUrl, sbApiKey);
@@ -300,7 +302,7 @@ export default function Write() {
               className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-secondary text-white border-[1px] border-solid border-[#c4c9ce]"
               onClick={async () => {
                 await submit();
-                // router.push('/');
+                router.push("/civilComplaintRequest/myWrite");
               }}
             >
               신청

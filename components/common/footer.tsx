@@ -24,7 +24,7 @@ const footerInfo = [
 const Footer = () => {
   return (
     <footer className="w-full h-auto">
-      <div className="w-full h-auto grid grod-cols-1 xl:grid-cols-5 items-center bg-[#333333] px-0 2xl:px-[130px]">
+      <div className="w-full h-auto grid grid-cols-1 xl:grid-cols-5 items-center bg-[#333333] px-0 2xl:px-[130px]">
         <div className="flex col-span-1 xl:col-span-3 flex-wrap xl:flex-nowrap xl:text-[12px] gap-[16px] text-[#d1d1d1] text-[15px] px-[10px] py-[16px] xl:py-0">
           {footerLinks.map((link) => (
             <div key={link}>{link}</div>
