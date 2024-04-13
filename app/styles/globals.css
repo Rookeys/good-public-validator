@@ -157,3 +157,8 @@ a:hover {
 input[type='radio']:checked {
   background-color: #318de7;
 }
+
+input[type="radio"] {
+    width: 20px;
+    height: 20px;
+}

@@ -203,21 +203,21 @@ export default function Write() {
             <Button
               variant={"default"}
               type="button"
-              className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-white text-black border-[1px] border-solid border-[#555555]"
+              className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-white text-black border-[1px] border-solid border-[#c4c9ce]"
             >
               불러오기
             </Button>
             <Button
               variant={"default"}
               type="button"
-              className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-white text-black border-[1px] border-solid border-[#555555]"
+              className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-white text-black border-[1px] border-solid border-[#c4c9ce]"
             >
               임시저장
             </Button>
             <Button
               variant={"default"}
               type="button"
-              className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-secondary text-white border-[1px] border-solid border-[#555555]"
+              className="rounded-full hover:border-[1px] hover:border-solid hover:border-secondary hover:bg-white hover:text-secondary  ! py-2 !px-6 !font-normal !text-[14px] bg-secondary text-white border-[1px] border-solid border-[#c4c9ce]"
             >
               신청
             </Button>
