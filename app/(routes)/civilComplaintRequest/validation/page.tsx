@@ -115,7 +115,7 @@ export default function Write() {
     try {
       setIsLoading(true);
       await post();
-      // router.push("/civilComplaintRequest/myWrite");
+      router.push("/civilComplaintRequest/myWrite");
     } catch {
       console.log("error");
     } finally {
