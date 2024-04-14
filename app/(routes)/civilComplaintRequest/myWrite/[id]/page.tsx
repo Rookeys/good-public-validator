@@ -63,24 +63,16 @@ export default function MyWriteDetail() {
             maxLength={40000}
             readOnly
           />
-          {/* {!(data?.validation) && <div className="flex justify-between items-center">
-            <label htmlFor="name" className="text-[14px]">
-              부적절한 민원 글로 감지되었습니다
-            </label>
-          </div>}
-          <div className="w-full">
-            <textarea
-              className="w-full border border-solid border-[#c4c9ce] p-[8px] rounded resize-none text-gray"
-              name="pttnCntnCl"
-              id="pttnCntnCl"
-              disabled
-              // defaultValue={}
-              data-limit="40000"
-              rows={10}
-              maxLength={40000}
-            />
-          </div> */}
-          
+          {!data?.validation && (
+            <div className="flex justify-between items-center">
+              <label htmlFor="name" className="text-[14px]">
+                부적절한 민원 글로 감지되었습니다
+              </label>
+            </div>
+          )}
+          <div className="w-full text-[#fc2121] text-[12px]">
+            <span className='text-black'>감지된 글: </span>{data?.why_bad && data?.why_bad.toString()}
+          </div>
         </div>
 
         <article className="mt-[10px] flex justify-between bg-[#f4f5f9] items-center border-t border-solid border-[#c4c9ce] pr-4">

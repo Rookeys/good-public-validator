@@ -30,9 +30,9 @@ export const getSummary = async (text: string) => {
   return response;
 };
 
-export const getWhyBadRequest = async (text: string) => {
+export const getWhyBad = async (text: string) => {
   const response = await axios
-    .post("http://localhost:8000/why_bad_request", {
+    .post("http://localhost:8000/why_bad", {
       text,
     })
     .then((res) => res.data);

@@ -6,7 +6,7 @@ import Stepper from "@/components/common/stepper";
 import { Sidebar } from "@/components/sidebar";
 import { SmallBanner } from "@/components/smallBanner";
 import { Button } from "@/components/ui/button";
-import { getChecklist, getTranslateBadToGood, getValidation } from "@/services";
+import { getChecklist, getTranslateBadToGood, getValidation, getWhyBad } from "@/services";
 import { createClient } from "@supabase/supabase-js";
 import { ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
@@ -77,7 +77,12 @@ export default function Write() {
     const boolString = validationResponse.validFlag.toLowerCase();
     const validation = boolString === "true" ? true : false;
 
-    const { checkList: checklist } = await getChecklist(content);
+    let reasons;
+
+    if (!validation) {
+      reasons = await getWhyBad(content);
+    }
+      const { checkList: checklist } = await getChecklist(content);
 
     const client = createClient(sbUrl, sbApiKey);
     const { data, error } = await client
@@ -89,6 +94,7 @@ export default function Write() {
           validation,
           filteringData: GoodText,
           checklist,
+          why_bad: reasons ? reasons?.bad : null,
         },
       ])
       .select();
@@ -109,7 +115,7 @@ export default function Write() {
     try {
       setIsLoading(true);
       await post();
-      router.push("/civilComplaintRequest/myWrite");
+      // router.push("/civilComplaintRequest/myWrite");
     } catch {
       console.log("error");
     } finally {
