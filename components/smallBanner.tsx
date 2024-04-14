@@ -1,5 +1,4 @@
 import { HomeIcon } from '@heroicons/react/16/solid';
-import React, { ReactNode } from "react";
 
 export const SmallBanner = () => {
   return (

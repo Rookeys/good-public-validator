@@ -1,12 +1,12 @@
-'use client'
-import { useRouter } from 'next/navigation';
-import React, { ReactNode } from "react";
+"use client";
+import { useRouter } from "next/navigation";
+import { ReactNode } from "react";
 
 const Menu = [
-  "유사민원 검색",
-  "온라인 민원FAQ",
-  "온라인 민원신청",
-  "나의민원보기",
+  { label: '유사민원 검색', link: undefined },
+  { label: '온라인 민원FAQ', link: undefined },
+  { label: '온라인 민원신청', link: "/civilComplaintRequest" },
+  { label: '나의민원보기', link: "/civilComplaintRequest/myWrite" },
 ];
 export const Sidebar = () => {
   return (
@@ -16,8 +16,8 @@ export const Sidebar = () => {
       </div>
       <div className="">
         {Menu.map((data, i) => (
-          <SidebarBox key={data} isClick={i === 2}>
-            {data}
+          <SidebarBox key={data.label} isClick={i === 2} link={data.link}>
+            {data.label}
           </SidebarBox>
         ))}
       </div>
@@ -26,17 +26,20 @@ export const Sidebar = () => {
 };
 
 type Props = {
-  children: ReactNode
-  isClick?: boolean
-}
-const SidebarBox = ({ children, isClick = false }: Props) => {
-  const router = useRouter()
+  children: ReactNode;
+  isClick?: boolean;
+  link?: string;
+};
+const SidebarBox = ({ children, isClick = false, link }: Props) => {
+  const router = useRouter();
   return (
     <div
-      className={`py-[8px] flex items-center border-b border-solid border-[#d5d5db] p-[8px] cursor-pointer ${
-        isClick ? "bg-[#eff0f4] text-[#103e93] font-bold" : ""
-      }`}
-      onClick={() => router.push("/civilComplaintRequest")}
+      className={`py-[8px] flex items-center border-b border-solid border-[#d5d5db] p-[8px] ${
+        !!link ? "cursor-pointer" : ""
+      } ${isClick ? "bg-[#eff0f4] text-[#103e93] font-bold" : ""}`}
+      onClick={() => {
+        link && router.push(`${link}`);
+      }}
     >
       {children}
     </div>
