@@ -66,22 +66,23 @@ export default function MyWrite() {
         </article>
         <article className="grid grid-cols-9 bg-[#f4f5f9]">
           <div className="col-span-1 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">번호</div>
-          <div className="col-span-2 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">신청번호</div>
+          <div className="col-span-1 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">신청번호</div>
           <div className="col-span-2 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">제목</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">신청일</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">처리기관</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">추진상황</div>
-          <div className="col-span-1 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">만족도 조사</div>
+          <div className="col-span-2 px-[4px] py-[12px] text-center font-semibold border-t-2 border-solid">만족도 조사</div>
         </article>
         {data && Array.isArray(data) && data.length > 0 && 
         data.map((data) => <article className="grid grid-cols-9 cursor-pointer" key={data.id}>
-          <div className="col-span-1 px-[4px] py-[12px] text-center" onClick={() => {router.push(`/civilComplaintRequest/myWrite/${data.id}`)}}>{data.id}</div>
-          <div className="col-span-2 px-[4px] py-[12px] text-center">{data.id}</div>
+          <div className="col-span-1 px-[4px] py-[12px] text-center">{data.id}</div>
+          <div className="col-span-1 px-[4px] py-[12px] text-center">{data.id}</div>
           <div className="col-span-2 px-[4px] py-[12px] text-center">{data.title}</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center">{formatUTCDateToLocalDateString(data.created_at)}</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center">행정안전부</div>
           <div className="col-span-1 px-[4px] py-[12px] text-center">진행중</div>
-          <div className="col-span-1 px-[4px] py-[12px] text-center"onClick={() => {router.push(`/publicOfficial/${data.id}`);}} >-</div>
+          <div className="col-span-1 px-[4px] py-[12px] text-center text-white mr-1 h-[40px] rounded-[4px] bg-primary" onClick={() => {router.push(`/civilComplaintRequest/myWrite/${data.id}`)}} >민원인</div>
+          <div className="col-span-1 px-[4px] py-[12px] text-center text-white ml-1 h-[40px] rounded-[4px] bg-secondary" onClick={() => {router.push(`/publicOfficial/${data.id}`);}} >공무원</div>
         </article>)}
       </section>
     </section>
