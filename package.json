@@ -1,5 +1,5 @@
 {
-  "name": "dessert-gallery-v2",
+  "name": "good-public-validator",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.3",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-radio-group": "^1.1.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "@supabase/supabase-js": "^2.42.3",
+    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.338.0",

@@ -151,3 +151,14 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+
+
+input[type='radio']:checked {
+  background-color: #318de7;
+}
+
+input[type="radio"] {
+    width: 20px;
+    height: 20px;
+}

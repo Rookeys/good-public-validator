@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from "@/components/ui/toaster";
+import { Header } from "@/components/common/header";
+import Footer from "@/components/common/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Dessert gallery",
-    default: "Dessert gallery",
+    template: "%s | Good public validator",
+    default: "Good public validator",
   },
-  description:
-    "Get recommendations for dessert cafes near you. Community sites with recommendations for the best dessert cafes",
+  description: "",
   icons: {
-    icon: "/faviconT.ico",
+    icon: "/favicon.ico",
   },
 };
 
@@ -24,9 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className}`}>
+        <Header />
         <main>{children}</main>
         <Toaster />
+        <Footer />
       </body>
     </html>
   );
